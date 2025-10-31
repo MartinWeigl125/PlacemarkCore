@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import Handlebars from "handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
+import Joi from "joi";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
@@ -26,6 +27,7 @@ async function init() {
   await server.register(Cookie);
   await server.register(Vision);
   await server.register(Inert);
+  server.validator(Joi);
   server.views({
     engines: {
       hbs: Handlebars,
