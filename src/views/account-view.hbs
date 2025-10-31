@@ -1,0 +1,76 @@
+{{> menu active="account"}}
+
+<section class="section">
+  <h1 class="title">Account Settings</h1>
+
+  <form action="/updateuser" method="POST">
+
+    <label class="label">Name</label>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <input
+            class="input"
+            type="text"
+            placeholder="First name"
+            name="firstName"
+            value="{{user.firstName}}"
+          >
+        </div>
+
+        <div class="field">
+          <input
+            class="input"
+            type="text"
+            placeholder="Last name"
+            name="lastName"
+            value="{{user.lastName}}"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <input
+        class="input"
+        type="email"
+        placeholder="Email address"
+        name="email"
+        value="{{user.email}}"
+      >
+    </div>
+
+    <hr>
+
+    <div class="field">
+      <label class="label">Change Password</label>
+      <input
+        class="input"
+        type="password"
+        placeholder="New password"
+        name="password"
+      >
+    </div>
+
+    <div class="field is-grouped">
+      <button class="button is-link" style="background-color: LimeGreen;">
+        Save Changes
+      </button>
+    </div>
+  </form>
+
+  <hr>
+
+  <form action="/deleteuser" method="GET">
+    <div class="field">
+      <label class="label has-text-danger">Delete Account</label>
+      <p class="help is-danger">This action cannot be undone.</p>
+
+      <button class="button is-danger">
+        Delete Account
+      </button>
+    </div>
+  </form>
+
+</section>

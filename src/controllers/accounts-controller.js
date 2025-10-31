@@ -64,6 +64,53 @@ export const accountsController = {
       return h.redirect("/");
     },
   },
+  showAccount: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const user = await db.userStore.getUserById(loggedInUser._id);
+      const viewData = {
+        title: "Placemark Account",
+        user: user,  
+      }
+      return h.view("account-view", viewData);
+    },
+  },
+  update: {
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false },
+      failAction: async function (request, h, error) {
+        const loggedInUser = request.auth.credentials;
+        const user = await db.userStore.getUserById(loggedInUser._id);
+        const viewData = {
+          title: "Update error",
+          user: user,
+          errors: error.details,  
+        };
+        return h.view("account-view", viewData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const user = await db.userStore.getUserById(loggedInUser._id);
+      const updatedUser = {
+        firstName: request.payload.firstName,
+        lastName: request.payload.lastName,
+        email: request.payload.email,
+        password: request.payload.password,
+      };
+      await db.userStore.updateUser(user, updatedUser);
+      return h.redirect("/account");
+    },
+  },
+  delete: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      await db.userStore.deleteUserById(loggedInUser._id);
+      request.cookieAuth.clear();
+      return h.redirect("/");
+    }
+  },
 
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);

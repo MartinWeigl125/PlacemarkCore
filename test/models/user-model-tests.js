@@ -35,6 +35,20 @@ suite("User Model tests", () => {
     assert.deepEqual(user, returnedUser2);
   });
 
+  test("update One user - success", async () => {
+    const user = await db.userStore.addUser(maggie);
+    const updatedUser = {
+      _id: user._id,
+      firstName: "New Maggie",
+      lastName: "New Simpson",
+      email: "newmaggie@newsimpson.com",
+      password: "newsecret",
+    }
+    await db.userStore.updateUser(user, updatedUser);
+    const returnedUser = await db.userStore.getUserById(user._id);
+    assert.deepEqual(updatedUser, returnedUser);
+  });
+
   test("delete One User - success", async () => {
     await db.userStore.deleteUserById(testUsers[0]._id);
     const returnedUsers = await db.userStore.getAllUsers();
