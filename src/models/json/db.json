@@ -5,21 +5,44 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "_id": "0dbe3738-4175-4b83-aa81-3dc5ce9d931b"
+      "_id": "98480e31-29a5-4ef9-a37d-18494abdcc1a"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "_id": "20c84954-70bc-4479-bec7-4dbd74c06db9"
+      "_id": "393b1faa-04dd-4c7a-9724-17497afef8c2"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "_id": "7cccf9b7-6c38-41fa-8a75-b2bf40d31118"
+      "_id": "99be463b-d953-4cd2-ac50-03234b849fa9"
+    }
+  ],
+  "pois": [
+    {
+      "name": "Stone Bridge",
+      "description": "12th-century stone bridge across the Danube, iconic city landmark.",
+      "latitude": 49.0227,
+      "longitude": 12.0973,
+      "_id": "37507a5c-8e54-435b-90de-77d395d7f24b"
+    },
+    {
+      "name": "Old Town of Regensburg with Stadtamhof",
+      "description": "Medieval city centre with over 1,000 monuments and UNESCO status.",
+      "latitude": 49.0203,
+      "longitude": 12.0947,
+      "_id": "b99f4f7e-7e1a-42af-b89b-9650b7268c02"
+    },
+    {
+      "name": "St. Emmeram Palace (Thurn und Taxis)",
+      "description": "Historic princely palace with rococo state rooms and family residence.",
+      "latitude": 49.0148,
+      "longitude": 12.0923,
+      "_id": "959c6b36-924c-4a94-a261-f4a98270e246"
     }
   ]
 }
