@@ -13,6 +13,9 @@ export const webRoutes = [
   { method: "GET", path: "/deleteuser", config: accountsController.delete },
 
   { method: "GET", path: "/dashboard", config: dashboardController.index },
+  { method: "POST", path: "/addpoi", config: dashboardController.addPoi },
+  { method: "GET", path: "/deletepoi/{id}", config: dashboardController.deletePoi },
+  { method: "POST", path: "/updatepoi/{id}", config: dashboardController.update },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
