@@ -1,5 +1,6 @@
 import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
+import { poiController } from "./controllers/poi-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -15,7 +16,8 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/addpoi", config: dashboardController.addPoi },
   { method: "GET", path: "/deletepoi/{id}", config: dashboardController.deletePoi },
-  { method: "POST", path: "/updatepoi/{id}", config: dashboardController.update },
+  { method: "GET", path: "/showpoiupdate/{id}", config: poiController.index },
+  { method: "POST", path: "/updatepoi/{id}", config: poiController.update },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
