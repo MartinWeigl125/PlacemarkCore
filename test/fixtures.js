@@ -53,3 +53,5 @@ export const testPois = [
     longitude: 12.0923,
   }
 ];
+
+export const serviceUrl = "http://localhost:3000";
