@@ -35,6 +35,36 @@ export const placemarkService = {
     return res.data;
   },
 
+  async createPoi(poi) {
+    const res = await axios.post(`${this.placemarkUrl}/api/pois`, poi);
+    return res.data;
+  },
+
+  async getPoi(id) {
+    const res = await axios.get(`${this.placemarkUrl}/api/pois/${id}`);
+    return res.data;
+  },
+
+  async getAllPois() {
+    const res = await axios.get(`${this.placemarkUrl}/api/pois`);
+    return res.data;
+  },
+
+  async updatePoi(id, poi) {
+    const res = await axios.put(`${this.placemarkUrl}/api/pois/${id}`, poi);
+    return res.data;
+  },
+
+  async deletePoi(id) {
+    const res = await axios.delete(`${this.placemarkUrl}/api/pois/${id}`);
+    return res.data;
+  },
+
+  async deleteAllPois() {
+    const res = await axios.delete(`${this.placemarkUrl}/api/pois`);
+    return res.data;
+  },
+
   async authenticate(user) {
     const response = await axios.post(`${this.placemarkUrl}/api/users/authenticate`, user);
     axios.defaults.headers.common.Authorization = `Bearer ${  response.data.token}`;
