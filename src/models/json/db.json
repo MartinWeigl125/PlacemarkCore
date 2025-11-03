@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "firstName": "Maggie",
+      "lastName": "Simpson",
+      "email": "maggie@simpson.com",
+      "password": "secret",
+      "_id": "57707085-a333-4fac-b186-5df0a47cab60"
+    }
+  ],
+  "pois": [
+    {
+      "name": "Old Town of Regensburg with Stadtamhof",
+      "description": "Medieval city centre with over 1,000 monuments and UNESCO status.",
+      "latitude": 49.0203,
+      "longitude": 12.0947,
+      "_id": "9af7cb7c-0278-43ef-b536-ae48811c36de"
+    },
+    {
+      "name": "St. Emmeram Palace (Thurn und Taxis)",
+      "description": "Historic princely palace with rococo state rooms and family residence.",
+      "latitude": 49.0148,
+      "longitude": 12.0923,
+      "_id": "b78d167c-b11d-4881-ad09-47a140e62570"
+    }
+  ]
+}

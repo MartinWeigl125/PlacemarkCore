@@ -1,0 +1,51 @@
+{{#if errors}}
+  <style>
+    .error-box {
+      background: #fff5f5;
+      border-left: 4px solid #e53935;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.25s ease-out;
+      line-height: 1.4;
+    }
+
+    .error-box p {
+      margin-top: 0;
+      color: #b71c1c;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .error-box p .icon {
+      margin-right: 0.4rem;
+      font-size: 1.1em;
+    }
+
+    .error-box ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      list-style-type: disc;
+    }
+
+    .error-box li {
+      margin-bottom: 0.25rem;
+      color: #d32f2f;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <div class="error-box">
+    <p><span class="icon">⚠️</span> There was a problem. Please check your inputs...</p>
+    <ul>
+      {{#each errors}}
+        <li>{{message}}</li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

@@ -1,0 +1,32 @@
+<table class="table is-fullwidth"> 
+  <thead> 
+    <tr> 
+      <th>Name</th> 
+      <th>Description</th> 
+      <th>Latitude</th> 
+      <th>Longitude</th> 
+    </tr>
+  </thead> 
+  <tbody> 
+    {{#each pois}} 
+      <tr> 
+        <td> {{name}} </td> 
+        <td> {{description}} </td> 
+        <td> {{latitude}} </td> 
+        <td> {{longitude}} </td> 
+        <td> 
+          <form action="/showpoiupdate/{{_id}}" style="display:inline"> 
+            <button class="ui icon button" type="submit"> 
+              <i class="fas fa-edit"></i> 
+            </button> 
+          </form> 
+        </td> 
+        <td> 
+          <a href="/deletepoi/{{_id}}" class="ui icon button"> 
+            <i class="fas fa-trash"></i> 
+          </a> 
+        </td> 
+      </tr> 
+    {{/each}} 
+  </tbody> 
+</table>
