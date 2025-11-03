@@ -20,3 +20,18 @@ export const UserSpecPlus = UserSpec.keys({
 }).label("UserDetailsPlus");
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
+
+export const PoiSpec = Joi.object()
+  .keys({
+    name: Joi.string().example("Jahnstadion Regensburg").required(),
+    description: Joi.string().example("The football stadium of the local 3rd division team SSV Jahn Regensburg").allow("").optional(),
+    latitude: Joi.number().example(49.015556).required(),
+    longitude: Joi.number().example(12.073889).required(),
+  }).label("Poi");
+
+export const PoiSpecPlus = PoiSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PoiPlus");
+
+export const PoiAray = Joi.array().items(PoiSpecPlus).label("PoiArray");
