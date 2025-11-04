@@ -10,6 +10,7 @@ export const dashboardController = {
         title: "Placemark Dashboard",
         user: loggedInUser,
         pois: pois,
+        isAdmin: loggedInUser.email === "admin@placemark.com"
       };
       return h.view("dashboard-view", viewData);
     },

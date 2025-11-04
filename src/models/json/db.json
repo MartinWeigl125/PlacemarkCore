@@ -1,13 +1,5 @@
 {
-  "users": [
-    {
-      "firstName": "Maggie",
-      "lastName": "Simpson",
-      "email": "maggie@simpson.com",
-      "password": "secret",
-      "_id": "57707085-a333-4fac-b186-5df0a47cab60"
-    }
-  ],
+  "users": [],
   "pois": [
     {
       "name": "Old Town of Regensburg with Stadtamhof",
