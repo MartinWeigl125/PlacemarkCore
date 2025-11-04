@@ -1,6 +1,6 @@
 {
   "name": "placemarkcore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This is the first part of the assignment in the module Advanced Full Stack Development. It is about implementing a Point Of Interest application with the framework HAPI.",
   "main": "src/server.js",
   "type": "module",
