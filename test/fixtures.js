@@ -54,4 +54,24 @@ export const testPois = [
   }
 ];
 
+export const building = {
+  name: "ancient building"
+};
+
+export const footballStadium = {
+  name: "football stadium"
+};
+
+export const testCategories = [
+  {
+    name: "transport"
+  },
+  {
+    name: "nature"
+  },
+  {
+    name: "restaurant"
+  },
+]
+
 export const serviceUrl = "http://localhost:3000";
