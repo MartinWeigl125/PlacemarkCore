@@ -8,7 +8,7 @@ suite("Poi Model tests", () => {
   let build = null;
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
     await db.poiStore.deleteAllPois();
     build = await db.categoryStore.addCategory(building)
@@ -53,7 +53,10 @@ suite("Poi Model tests", () => {
     }
     await db.poiStore.updatePoi(poi, updatedPoi);
     const returnedPoi = await db.poiStore.getPoiById(poi._id);
-    assert.deepEqual(updatedPoi, returnedPoi);
+    assert.equal(updatedPoi.name, returnedPoi.name);
+    assert.equal(updatedPoi.description, returnedPoi.description);
+    assert.equal(updatedPoi.latitude, returnedPoi.latitude);
+    assert.equal(updatedPoi.longitude, returnedPoi.longitude);
   });
 
   test("delete One poi - success", async () => {

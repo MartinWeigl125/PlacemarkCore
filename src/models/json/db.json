@@ -1,39 +1,5 @@
 {
-  "users": [
-    {
-      "firstName": "Homer",
-      "lastName": "Simpson",
-      "email": "homer@simpson.com",
-      "password": "secret",
-      "_id": "3b6d7d84-c664-4970-8d97-f2656316f470"
-    },
-    {
-      "firstName": "Marge",
-      "lastName": "Simpson",
-      "email": "marge@simpson.com",
-      "password": "secret",
-      "_id": "e25c2a72-b1b0-43ba-addc-e000a05406bc"
-    },
-    {
-      "firstName": "Bart",
-      "lastName": "Simpson",
-      "email": "bart@simpson.com",
-      "password": "secret",
-      "_id": "38001d96-06c9-4061-a6e4-cb86f0f7a7ad"
-    },
-    {
-      "firstName": "Maggie",
-      "lastName": "Simpson",
-      "email": "maggie@simpson.com",
-      "password": "secret",
-      "_id": "c52915ca-cf3d-4d65-94d5-ee5ade795231"
-    }
-  ],
+  "users": [],
   "pois": [],
-  "categories": [
-    {
-      "name": "ancient building",
-      "_id": "fa23010f-c22b-46da-ae71-88100211313f"
-    }
-  ]
+  "categories": []
 }

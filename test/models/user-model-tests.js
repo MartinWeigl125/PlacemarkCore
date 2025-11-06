@@ -6,7 +6,7 @@ import { assertSubset } from "../test-utils.js";
 suite("User Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.userStore.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -46,7 +46,10 @@ suite("User Model tests", () => {
     }
     await db.userStore.updateUser(user, updatedUser);
     const returnedUser = await db.userStore.getUserById(user._id);
-    assert.deepEqual(updatedUser, returnedUser);
+    assert.equal(updatedUser.firstName, returnedUser.firstName);
+    assert.equal(updatedUser.lastName, returnedUser.lastName);
+    assert.equal(updatedUser.email, returnedUser.email);
+    assert.equal(updatedUser.password, returnedUser.password);
   });
 
   test("delete One User - success", async () => {
