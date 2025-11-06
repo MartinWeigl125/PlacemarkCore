@@ -29,13 +29,16 @@ export const seedData = {
   categories: {
     _model: "Category",
     building: {
-      name: "Buildings"
+      name: "Buildings",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423112/pcylvetl7ub3abucn5hw.jpg"
     },
     transport: {
-      name: "Transport"
+      name: "Transport",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423402/vh6hgcd8z6u5o6ex2coq.jpg"
     },
     university: {
-      name: "Universities"
+      name: "Universities",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423346/tkipcpo6qgnvvft6q4lk.jpg"
     }
   },
   pois: {

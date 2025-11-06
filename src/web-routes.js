@@ -18,6 +18,8 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addcategory", config: dashboardController.addCategory },
   { method: "GET", path: "/dashboard/deletecategory/{id}", config: dashboardController.deleteCategory },
+  { method: "POST", path: "/dashboard/{id}/uploadimage", config: dashboardController.uploadImage },
+  { method: "GET", path: "/dashboard/{id}/deleteimage", config: dashboardController.deleteImage },
 
   { method: "GET", path: "/category/{id}", config: categoryController.index },
   { method: "POST", path: "/category/{id}/addpoi", config: categoryController.addPoi },

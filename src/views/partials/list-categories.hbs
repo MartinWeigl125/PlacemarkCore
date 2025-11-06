@@ -1,17 +1,71 @@
 {{#each categories}}
-  <div class="box box-link-hover-shadow">
-    <h2 class="title">
-      {{name}}
-    </h2>
-    <a href="/category/{{_id}}" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-search"></i>
-      </span>
-    </a>
-    <a href="/dashboard/deletecategory/{{_id}}" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-trash"></i>
-      </span>
-    </a>
+  <div class="box">
+    <div class="columns is-vcentered">
+      <!-- Name + Buttons links, zentriert -->
+      <div class="column is-half is-flex is-flex-direction-column is-align-items-center">
+        <h2 class="title has-text-centered">{{name}}</h2>
+        <div class="buttons mt-2">
+          <a href="/category/{{_id}}" class="button">
+            <span class="icon is-small">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+          <a href="/dashboard/deletecategory/{{_id}}" class="button">
+            <span class="icon is-small">
+              <i class="fas fa-trash"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Bild oder Upload-Form rechts -->
+      <div class="column is-half is-flex is-justify-content-center">
+        {{#if img}}
+          <div class="card" style="position: relative; display: inline-block;">
+            <div class="card-image">
+              <figure class="image is-256x256">
+                <img src="{{img}}" alt="Category Image">
+              </figure>
+              <form action="/dashboard/{{_id}}/deleteimage" method="GET" style="position: absolute; top: 10px; right: 10px;">
+                <button type="submit" class="button is-rounded">
+                  <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                  </span>
+                </button>
+              </form>
+            </div>
+          </div>
+        {{else}}
+          <form action="/dashboard/{{_id}}/uploadimage" method="POST" enctype="multipart/form-data" class="is-flex is-align-items-center">
+            <div class="file has-name mr-2">
+              <label class="file-label">
+                <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Choose a file…
+                  </span>
+                </span>
+                <span class="file-name"></span>
+              </label>
+            </div>
+            <button type="submit" class="button is-info">Upload</button>
+          </form>
+        {{/if}}
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".file-input").forEach(input => {
+        input.onchange = () => {
+          if (input.files.length > 0) {
+            const fileName = input.closest(".file").querySelector(".file-name");
+            fileName.textContent = input.files[0].name;
+          }
+        };
+      });
+    </script>
   </div>
 {{/each}}
