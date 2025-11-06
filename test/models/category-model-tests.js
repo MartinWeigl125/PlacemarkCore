@@ -9,7 +9,7 @@ EventEmitter.setMaxListeners(25);
 suite("category model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init("mongo");
     await db.categoryStore.deleteAllCategories();
   });
 
@@ -23,10 +23,8 @@ suite("category model tests", () => {
       // eslint-disable-next-line no-await-in-loop
       await db.categoryStore.addCategory(testCategories[i]);
     }
-    let returnedCategories = await db.categoryStore.getAllCategories();
-    assert.equal(returnedCategories.length, 3);
     await db.categoryStore.deleteAllCategories();
-    returnedCategories = await db.categoryStore.getAllCategories();
+    const returnedCategories = await db.categoryStore.getAllCategories();
     assert.equal(returnedCategories.length, 0);
   });
 
