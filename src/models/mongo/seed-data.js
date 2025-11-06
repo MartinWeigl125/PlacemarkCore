@@ -48,6 +48,7 @@ export const seedData = {
       description: "The football stadium of the local 3rd division team SSV Jahn Regensburg",
       latitude: 49.015556,
       longitude: 12.073889,
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762425742/w5cd3qrhhjtgl1fbueio.jpg",
       categoryid: "->categories.building" 
     },
     building_2: {
@@ -62,6 +63,7 @@ export const seedData = {
       description: "Medieval city centre with over 1,000 monuments and UNESCO status.",
       latitude: 49.0203,
       longitude: 12.0947,
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762426520/svkb1y5k3ufzaptyec3b.jpg",
       categoryid: "->categories.building" 
     },
     building_3: {

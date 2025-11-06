@@ -26,6 +26,8 @@ export const webRoutes = [
   { method: "GET", path: "/category/{catid}/deletepoi/{id}", config: categoryController.deletePoi },
   { method: "GET", path: "/category/{catid}/showpoiupdate/{id}", config: poiController.index },
   { method: "POST", path: "/category/{catid}/updatepoi/{id}", config: poiController.update },
+  { method: "POST", path: "/category/{catid}/uploadimage/{id}", config: categoryController.uploadImage },
+  { method: "GET", path: "/category/{catid}/deleteimage/{id}", config: categoryController.deleteImage },
 
   { method: "GET", path: "/admin", config: adminController.index },
   { method: "GET", path: "/admindelete/{id}", config: adminController.delete },
