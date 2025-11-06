@@ -1,54 +1,53 @@
-{{#each category.pois}}
+{{#each categories}}
   <div class="box">
     <div class="columns is-vcentered">
       <div class="column is-half is-flex is-flex-direction-column is-align-items-center">
         <h2 class="title has-text-centered">{{name}}</h2>
-        <p> {{description}} </p>
-        <p> <b>Latitude: </b> {{latitude}} </p>
-        <p> <b>Longitude: </b> {{longitude}} </p>
         <div class="buttons mt-2">
-          <form action="/category/{{../category._id}}/showpoiupdate/{{_id}}" style="display:inline"> 
-            <button class="ui icon button" type="submit"> 
-              <i class="fas fa-edit"></i> 
-            </button> 
-          </form> 
-          <a href="/category/{{../category._id}}/deletepoi/{{_id}}" class="ui icon button"> 
-            <i class="fas fa-trash"></i> 
-          </a> 
+          <a href="/category/{{_id}}" class="button">
+            <span class="icon is-small">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+          <a href="/dashboard/deletecategory/{{_id}}" class="button">
+            <span class="icon is-small">
+              <i class="fas fa-trash"></i>
+            </span>
+          </a>
         </div>
       </div>
 
       <div class="column is-half is-flex is-justify-content-center">
         {{#if img}}
-            <div class="card" style="position: relative; display: inline-block;">
+          <div class="card" style="position: relative; display: inline-block;">
             <div class="card-image">
-                <figure class="image is-256x256">
+              <figure class="image is-256x256">
                 <img src="{{img}}" alt="Category Image">
-                </figure>
-                <form action="/category/{{../category._id}}/deleteimage/{{_id}}" method="GET" style="position: absolute; top: 10px; right: 10px;">
+              </figure>
+              <form action="/dashboard/{{_id}}/deleteimage" method="GET" style="position: absolute; top: 10px; right: 10px;">
                 <button type="submit" class="button is-rounded">
-                    <span class="icon">
+                  <span class="icon">
                     <i class="fas fa-trash-alt"></i>
-                    </span>
+                  </span>
                 </button>
-                </form>
+              </form>
             </div>
-            </div>
+          </div>
         {{else}}
-          <form action="/category/{{../category._id}}/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data" class="is-flex is-align-items-center">
+          <form action="/dashboard/{{_id}}/uploadimage" method="POST" enctype="multipart/form-data" class="is-flex is-align-items-center">
             <div class="file has-name mr-2">
-                <label class="file-label">
+              <label class="file-label">
                 <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg">
                 <span class="file-cta">
-                    <span class="file-icon">
+                  <span class="file-icon">
                     <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
+                  </span>
+                  <span class="file-label">
                     Choose a file…
-                    </span>
+                  </span>
                 </span>
                 <span class="file-name"></span>
-                </label>
+              </label>
             </div>
             <button type="submit" class="button is-info">Upload</button>
           </form>

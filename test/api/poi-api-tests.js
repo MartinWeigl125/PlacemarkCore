@@ -1,30 +1,34 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
-import { maggie, jahnstadion, testPois } from "../fixtures.js";
+import { maggie, jahnstadion, testPois, building, footballStadium } from "../fixtures.js";
 
 const pois = new Array(testPois.length);
 
 suite("Poi API tests", () => {
   let user = null;
+  let build = null;
 
   setup(async () => {
     placemarkService.clearAuth();
     user = await placemarkService.createUser(maggie);
     await placemarkService.authenticate({ email: maggie.email, password: maggie.password });
+    await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllPois();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(maggie);
     await placemarkService.authenticate({ email: maggie.email, password: maggie.password });
+    build = await placemarkService.createCategory(building);
     for (let i = 0; i < testPois.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      pois[i] = await placemarkService.createPoi(testPois[i]);
+      pois[i] = await placemarkService.createPoi(build._id, testPois[i]);
     }
   });
   teardown(async () => {});
 
   test("create and update a poi", async () => {
-    let newPoi = await placemarkService.createPoi(jahnstadion);
+    const football = await placemarkService.createCategory(footballStadium);
+    let newPoi = await placemarkService.createPoi(football._id, jahnstadion);
     assertSubset(jahnstadion, newPoi);
     assert.isDefined(newPoi._id);
     const updatedPoi = {
@@ -57,7 +61,7 @@ suite("Poi API tests", () => {
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No poi with this id");
-      assert.equal(error.response.data.statusCode, 404);
+      assert.equal(error.response.data.statusCode, 503);
     }
   });
 

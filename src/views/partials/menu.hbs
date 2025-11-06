@@ -6,6 +6,10 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
+          {{!-- check for static admin user, this is the email address of an admin --}}
+          {{#if isAdmin}}
+            <a id="admin" class="button" href="/admin"> Administration </a>
+          {{/if}}
           <a id="dashboard" class="button" href="/dashboard"> Dashboard </a>
           <a id="logout" class="button" href="/logout"> Logout </a>
           <a id="account" class="button" href="/account"> Account </a>

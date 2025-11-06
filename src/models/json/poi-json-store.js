@@ -7,9 +7,10 @@ export const poiJsonStore = {
     return db.data.pois;
   },
 
-  async addPoi(poi) {
+  async addPoi(categoryId, poi) {
     await db.read();
     poi._id = v4();
+    poi.categoryid = categoryId;
     db.data.pois.push(poi);
     await db.write();
     return poi;
@@ -22,6 +23,15 @@ export const poiJsonStore = {
       foundPoi = null;
     }
     return foundPoi;
+  },
+
+  async getPoisByCategoryId(id) {
+    await db.read();
+    let foundPois = db.data.pois.filter((poi) => poi.categoryid === id);
+    if (!foundPois) {
+      foundPois = null;
+    }
+    return foundPois;
   },
 
   async deletePoiById(id) {

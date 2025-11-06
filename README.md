@@ -2,10 +2,16 @@
 This is the first part of the assignment in the module Advanced Full Stack Development. It is about implementing a Point Of Interest application with the framework HAPI.
 ## Features
 - Create and manage Points of Interests
+- Group Points of Interests into categories
+- Images saved in Cloudinary for categories and Points of Interests
 - User authentication and authorization
-- Data persistence using JSON store
-- RESTful API endpoints
+- static admin user (admin@placemark.com) can list and delete users
+- Data persistence using Mongo DB
+- Automatic seeding of the database
+- RESTful API endpoints with JWT Authentication
+- Cookies
 - Built with HAPI framework
+- Model and API tests
 
 ## Installation
 ```bash
@@ -17,6 +23,10 @@ Create a `.env` file in the root directory with:
 ```
 cookie_name=COOKIE_NAME_HERE
 cookie_password=COOKIE_EMCRYPTION_KEY_HERE_MUST_BE_32_CHARS
+db=CONNECTION_STRING_HERE
+cloudinary_name=CLOUDINARY_NAME_HERE
+cloudinary_key=CLOUDINARY_KEY_HERE
+cloudinary_secret=CLOUDINARY_SECRET_HERE
 ```
 
 ## Usage
@@ -34,6 +44,7 @@ Run tests with:
 ```bash
 npm test
 ```
+Notice: Running all tests parallel can lead to errors. Running each test separately works.
 
 ## Technologies
 - Node.js
@@ -44,3 +55,5 @@ npm test
 - Prettier
 - ESLint
 - Joi
+- MongoDB
+- Cloudinary

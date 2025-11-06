@@ -1,4 +1,6 @@
 import { accountsController } from "./controllers/accounts-controller.js";
+import { adminController } from "./controllers/admin-controller.js";
+import { categoryController } from "./controllers/category-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { poiController } from "./controllers/poi-controller.js";
 
@@ -14,10 +16,21 @@ export const webRoutes = [
   { method: "GET", path: "/deleteuser", config: accountsController.delete },
 
   { method: "GET", path: "/dashboard", config: dashboardController.index },
-  { method: "POST", path: "/addpoi", config: dashboardController.addPoi },
-  { method: "GET", path: "/deletepoi/{id}", config: dashboardController.deletePoi },
-  { method: "GET", path: "/showpoiupdate/{id}", config: poiController.index },
-  { method: "POST", path: "/updatepoi/{id}", config: poiController.update },
+  { method: "POST", path: "/dashboard/addcategory", config: dashboardController.addCategory },
+  { method: "GET", path: "/dashboard/deletecategory/{id}", config: dashboardController.deleteCategory },
+  { method: "POST", path: "/dashboard/{id}/uploadimage", config: dashboardController.uploadImage },
+  { method: "GET", path: "/dashboard/{id}/deleteimage", config: dashboardController.deleteImage },
+
+  { method: "GET", path: "/category/{id}", config: categoryController.index },
+  { method: "POST", path: "/category/{id}/addpoi", config: categoryController.addPoi },
+  { method: "GET", path: "/category/{catid}/deletepoi/{id}", config: categoryController.deletePoi },
+  { method: "GET", path: "/category/{catid}/showpoiupdate/{id}", config: poiController.index },
+  { method: "POST", path: "/category/{catid}/updatepoi/{id}", config: poiController.update },
+  { method: "POST", path: "/category/{catid}/uploadimage/{id}", config: categoryController.uploadImage },
+  { method: "GET", path: "/category/{catid}/deleteimage/{id}", config: categoryController.deleteImage },
+
+  { method: "GET", path: "/admin", config: adminController.index },
+  { method: "GET", path: "/admindelete/{id}", config: adminController.delete },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
