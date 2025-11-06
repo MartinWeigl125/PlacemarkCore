@@ -5,50 +5,35 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "_id": "2d2ba8fc-6d12-4c09-b355-6a136f21ac74"
+      "_id": "3b6d7d84-c664-4970-8d97-f2656316f470"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "_id": "f577111d-67db-4940-be71-9726f3fcc043"
+      "_id": "e25c2a72-b1b0-43ba-addc-e000a05406bc"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "_id": "356e84be-a58f-40f6-8a03-ac699ac77813"
+      "_id": "38001d96-06c9-4061-a6e4-cb86f0f7a7ad"
     },
     {
       "firstName": "Maggie",
       "lastName": "Simpson",
       "email": "maggie@simpson.com",
       "password": "secret",
-      "_id": "cddad8e5-56b0-49d6-a0e3-d4dfb667f09f"
-    },
-    {
-      "firstName": "New Maggie",
-      "lastName": "New Simpson",
-      "email": "newmaggie@newsimpson.com",
-      "password": "newsecret",
-      "_id": "2668f249-659a-45a3-8200-857d111d5086"
+      "_id": "c52915ca-cf3d-4d65-94d5-ee5ade795231"
     }
   ],
   "pois": [],
   "categories": [
     {
-      "name": "transport",
-      "_id": "e3f55d25-6213-4fba-92b1-16b919a053c2"
-    },
-    {
-      "name": "nature",
-      "_id": "f5cc5f3d-420e-4274-8922-f01ac2a06e14"
-    },
-    {
-      "name": "restaurant",
-      "_id": "5b937040-01e1-40ad-8470-b80938fe5c1c"
+      "name": "ancient building",
+      "_id": "fa23010f-c22b-46da-ae71-88100211313f"
     }
   ]
 }

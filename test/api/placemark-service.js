@@ -35,8 +35,38 @@ export const placemarkService = {
     return res.data;
   },
 
-  async createPoi(poi) {
-    const res = await axios.post(`${this.placemarkUrl}/api/pois`, poi);
+  async createCategory(category) {
+    const res = await axios.post(`${this.placemarkUrl}/api/categories`, category);
+    return res.data;
+  },
+
+  async getCategory(id) {
+    const res = await axios.get(`${this.placemarkUrl}/api/categories/${id}`);
+    return res.data;
+  },
+
+  async getAllCategories() {
+    const res = await axios.get(`${this.placemarkUrl}/api/categories`);
+    return res.data;
+  },
+
+  async updateCategory(id, category) {
+    const res = await axios.put(`${this.placemarkUrl}/api/categories/${id}`, category);
+    return res.data;
+  },
+
+  async deleteCategory(id) {
+    const res = await axios.delete(`${this.placemarkUrl}/api/categories/${id}`);
+    return res;
+  },
+
+  async deleteAllCategories() {
+    const res = await axios.delete(`${this.placemarkUrl}/api/categories`);
+    return res.data;
+  },
+
+  async createPoi(catid, poi) {
+    const res = await axios.post(`${this.placemarkUrl}/api/categories/${catid}/pois`, poi);
     return res.data;
   },
 
