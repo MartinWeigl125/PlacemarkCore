@@ -7,6 +7,7 @@ export const poiController = {
       const poi = await db.poiStore.getPoiById(request.params.id);
       const viewData = {
         title: "Update Point of Interest",
+        catid: request.params.catid,
         poi: poi,
       };
       return h.view("poi-update-view", viewData);
@@ -31,7 +32,7 @@ export const poiController = {
         longitude: Number(request.payload.longitude),
       };
       await db.poiStore.updatePoi(poi, newPoi);
-      return h.redirect("/dashboard");
+      return h.redirect(`/category/${request.params.catid}`);
     },
   },
 };

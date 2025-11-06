@@ -1,8 +1,11 @@
-{{> menu active="dashboard"}}
+{{> menu}}
 
 <section class="section columns is-vcentered">
   <div class="column has-text-centered">
-    {{> list-categories}}
-    {{> add-category}}
+    <div class="title">
+      {{category.name}}
+    </div>
+    {{> list-pois}}
+    {{> add-poi}}
   </div>
 </section>

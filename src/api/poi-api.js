@@ -10,7 +10,7 @@ export const poiApi = {
     },
     handler: async function (request, h) {
       try {
-        const poi = await db.poiStore.addPoi(request.payload);
+        const poi = await db.poiStore.addPoi(request.params.id, request.payload);
         if (poi) {
           return h.response(poi).code(201);
         }

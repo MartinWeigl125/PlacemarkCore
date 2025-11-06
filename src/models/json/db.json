@@ -1,19 +1,39 @@
 {
-  "users": [],
-  "pois": [
+  "users": [
     {
-      "name": "Old Town of Regensburg with Stadtamhof",
-      "description": "Medieval city centre with over 1,000 monuments and UNESCO status.",
-      "latitude": 49.0203,
-      "longitude": 12.0947,
-      "_id": "9af7cb7c-0278-43ef-b536-ae48811c36de"
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "_id": "3b6d7d84-c664-4970-8d97-f2656316f470"
     },
     {
-      "name": "St. Emmeram Palace (Thurn und Taxis)",
-      "description": "Historic princely palace with rococo state rooms and family residence.",
-      "latitude": 49.0148,
-      "longitude": 12.0923,
-      "_id": "b78d167c-b11d-4881-ad09-47a140e62570"
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret",
+      "_id": "e25c2a72-b1b0-43ba-addc-e000a05406bc"
+    },
+    {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret",
+      "_id": "38001d96-06c9-4061-a6e4-cb86f0f7a7ad"
+    },
+    {
+      "firstName": "Maggie",
+      "lastName": "Simpson",
+      "email": "maggie@simpson.com",
+      "password": "secret",
+      "_id": "c52915ca-cf3d-4d65-94d5-ee5ade795231"
+    }
+  ],
+  "pois": [],
+  "categories": [
+    {
+      "name": "ancient building",
+      "_id": "fa23010f-c22b-46da-ae71-88100211313f"
     }
   ]
 }

@@ -27,7 +27,9 @@ export const PoiSpec = Joi.object()
     description: Joi.string().example("The football stadium of the local 3rd division team SSV Jahn Regensburg").allow("").optional(),
     latitude: Joi.number().example(49.015556).required(),
     longitude: Joi.number().example(12.073889).required(),
-  }).label("Poi");
+    categoryid: IdSpec,
+  })
+  .label("Poi");
 
 export const PoiSpecPlus = PoiSpec.keys({
   _id: IdSpec,
@@ -35,6 +37,20 @@ export const PoiSpecPlus = PoiSpec.keys({
 }).label("PoiPlus");
 
 export const PoiAray = Joi.array().items(PoiSpecPlus).label("PoiArray");
+
+export const CategorySpec = Joi.object()
+  .keys({
+    name: Joi.string().example("football stadium").required(),
+    pois: PoiAray,
+  })
+  .label("Category");
+
+export const CategorySpecPlus = CategorySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CategoryPlus");
+
+export const CategoryArray = Joi.array().items(CategorySpecPlus).label("CategoryArray");
 
 export const JwtAuth = Joi.object()
   .keys({
