@@ -5,61 +5,50 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "_id": "9a2f66ef-d767-4860-8838-f71d961d7c8d"
+      "_id": "2d2ba8fc-6d12-4c09-b355-6a136f21ac74"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "_id": "34a2fa26-a402-4c9b-905c-a8f097dd6327"
+      "_id": "f577111d-67db-4940-be71-9726f3fcc043"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "_id": "7d4646c5-5710-45de-ac95-2f9351079ff2"
-    }
-  ],
-  "pois": [
-    {
-      "name": "Stone Bridge",
-      "description": "12th-century stone bridge across the Danube, iconic city landmark.",
-      "latitude": 49.0227,
-      "longitude": 12.0973,
-      "_id": "356f3c1b-5b26-461b-a784-48f5d225d545",
-      "categoryid": "b1679bbf-489a-4516-af82-e8893d82da63"
+      "_id": "356e84be-a58f-40f6-8a03-ac699ac77813"
     },
     {
-      "name": "Old Town of Regensburg with Stadtamhof",
-      "description": "Medieval city centre with over 1,000 monuments and UNESCO status.",
-      "latitude": 49.0203,
-      "longitude": 12.0947,
-      "_id": "eed35d12-d8a9-47d1-9ecb-61c60b7f9e40",
-      "categoryid": "b1679bbf-489a-4516-af82-e8893d82da63"
+      "firstName": "Maggie",
+      "lastName": "Simpson",
+      "email": "maggie@simpson.com",
+      "password": "secret",
+      "_id": "cddad8e5-56b0-49d6-a0e3-d4dfb667f09f"
     },
     {
-      "name": "St. Emmeram Palace (Thurn und Taxis)",
-      "description": "Historic princely palace with rococo state rooms and family residence.",
-      "latitude": 49.0148,
-      "longitude": 12.0923,
-      "_id": "99935498-7d11-4beb-97f4-fc9b71441ed8",
-      "categoryid": "b1679bbf-489a-4516-af82-e8893d82da63"
+      "firstName": "New Maggie",
+      "lastName": "New Simpson",
+      "email": "newmaggie@newsimpson.com",
+      "password": "newsecret",
+      "_id": "2668f249-659a-45a3-8200-857d111d5086"
     }
   ],
+  "pois": [],
   "categories": [
     {
       "name": "transport",
-      "_id": "2b4a14e6-5229-4292-a3fd-071070359b10"
+      "_id": "e3f55d25-6213-4fba-92b1-16b919a053c2"
     },
     {
       "name": "nature",
-      "_id": "fc6f6e04-1d70-4739-bb15-7814d90a67aa"
+      "_id": "f5cc5f3d-420e-4274-8922-f01ac2a06e14"
     },
     {
       "name": "restaurant",
-      "_id": "c4f77f90-ecd3-4da9-aaa6-c54a5d6b7f45"
+      "_id": "5b937040-01e1-40ad-8470-b80938fe5c1c"
     }
   ]
 }

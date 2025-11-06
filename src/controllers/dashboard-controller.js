@@ -1,68 +1,43 @@
 import { db } from "../models/db.js";
-import { PoiSpec } from "../models/joi-schemas.js";
+import { CategorySpec, PoiSpec } from "../models/joi-schemas.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const pois = await db.poiStore.getAllPois();
+      const categories = await db.categoryStore.getAllCategories();
       const viewData = {
         title: "Placemark Dashboard",
         user: loggedInUser,
-        pois: pois,
+        categories: categories,
         isAdmin: loggedInUser.email === "admin@placemark.com"
       };
       return h.view("dashboard-view", viewData);
     },
   },
 
-  addPoi: {
+  addCategory: {
     validate: {
-      payload: PoiSpec,
+      payload: CategorySpec,
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
-        const pois = await db.poiStore.getAllPois();
-        return h.view("dashboard-view", { title: "Add Point of Interest error", errors: error.details, pois: pois }).takeover().code(400);
+        const categories = await db.categoryStore.getAllCategories();
+        return h.view("dashboard-view", { title: "Add Category error", errors: error.details, categories: categories }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
-      const newPoi = {
+      const newCategory = {
         name: request.payload.name,
-        description: request.payload.description,
-        latitude: Number(request.payload.latitude),
-        longitude: Number(request.payload.longitude),
       };
-      await db.poiStore.addPoi(newPoi);
+      await db.categoryStore.addCategory(newCategory);
       return h.redirect("/dashboard");
     },
   },
 
-  update: {
-    validate: {
-      payload: PoiSpec,
-      options: { abortEarly: false },
-      failAction: async function (request, h, error) {
-        const pois = await db.poiStore.getAllPois();
-        return h.view("dashboard-view", { title: "Edit Point of Interest error", errors: error.details, pois: pois }).takeover().code(400);
-      },
-    },
+  deleteCategory: {
     handler: async function (request, h) {
-      const poi = await db.poiStore.getPoiById(request.params.id);
-      const newPoi = {
-        name: request.payload.name,
-        description: request.payload.description,
-        latitude: Number(request.payload.latitude),
-        longitude: Number(request.payload.longitude),
-      };
-      await db.poiStore.updatePoi(poi, newPoi);
-      return h.redirect("/dashboard");
-    },
-  },
-
-  deletePoi: {
-    handler: async function (request, h) {
-      const poiId = request.params.id;
-      await db.poiStore.deletePoiById(poiId);
+      const catId = request.params.id;
+      await db.categoryStore.deleteCategoryById(catId);
       return h.redirect("/dashboard");      
     }
   },
