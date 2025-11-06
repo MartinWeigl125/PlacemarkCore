@@ -29,13 +29,16 @@ export const seedData = {
   categories: {
     _model: "Category",
     building: {
-      name: "Buildings"
+      name: "Buildings",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423112/pcylvetl7ub3abucn5hw.jpg"
     },
     transport: {
-      name: "Transport"
+      name: "Transport",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423402/vh6hgcd8z6u5o6ex2coq.jpg"
     },
     university: {
-      name: "Universities"
+      name: "Universities",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423346/tkipcpo6qgnvvft6q4lk.jpg"
     }
   },
   pois: {
@@ -45,6 +48,7 @@ export const seedData = {
       description: "The football stadium of the local 3rd division team SSV Jahn Regensburg",
       latitude: 49.015556,
       longitude: 12.073889,
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762425742/w5cd3qrhhjtgl1fbueio.jpg",
       categoryid: "->categories.building" 
     },
     building_2: {
@@ -59,6 +63,7 @@ export const seedData = {
       description: "Medieval city centre with over 1,000 monuments and UNESCO status.",
       latitude: 49.0203,
       longitude: 12.0947,
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762426520/svkb1y5k3ufzaptyec3b.jpg",
       categoryid: "->categories.building" 
     },
     building_3: {

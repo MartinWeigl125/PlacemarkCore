@@ -1,32 +1,70 @@
-<table class="table is-fullwidth"> 
-  <thead> 
-    <tr> 
-      <th>Name</th> 
-      <th>Description</th> 
-      <th>Latitude</th> 
-      <th>Longitude</th> 
-    </tr>
-  </thead> 
-  <tbody> 
-    {{#each category.pois}} 
-      <tr> 
-        <td> {{name}} </td> 
-        <td> {{description}} </td> 
-        <td> {{latitude}} </td> 
-        <td> {{longitude}} </td> 
-        <td> 
+{{#each category.pois}}
+  <div class="box">
+    <div class="columns is-vcentered">
+      <div class="column is-half is-flex is-flex-direction-column is-align-items-center">
+        <h2 class="title has-text-centered">{{name}}</h2>
+        <p> {{description}} </p>
+        <p> <b>Latitude: </b> {{latitude}} </p>
+        <p> <b>Longitude: </b> {{longitude}} </p>
+        <div class="buttons mt-2">
           <form action="/category/{{../category._id}}/showpoiupdate/{{_id}}" style="display:inline"> 
             <button class="ui icon button" type="submit"> 
               <i class="fas fa-edit"></i> 
             </button> 
           </form> 
-        </td> 
-        <td> 
           <a href="/category/{{../category._id}}/deletepoi/{{_id}}" class="ui icon button"> 
             <i class="fas fa-trash"></i> 
           </a> 
-        </td> 
-      </tr> 
-    {{/each}} 
-  </tbody> 
-</table>
+        </div>
+      </div>
+
+      <div class="column is-half is-flex is-justify-content-center">
+        {{#if img}}
+            <div class="card" style="position: relative; display: inline-block;">
+            <div class="card-image">
+                <figure class="image is-256x256">
+                <img src="{{img}}" alt="Category Image">
+                </figure>
+                <form action="/category/{{../category._id}}/deleteimage/{{_id}}" method="GET" style="position: absolute; top: 10px; right: 10px;">
+                <button type="submit" class="button is-rounded">
+                    <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                    </span>
+                </button>
+                </form>
+            </div>
+            </div>
+        {{else}}
+          <form action="/category/{{../category._id}}/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data" class="is-flex is-align-items-center">
+            <div class="file has-name mr-2">
+                <label class="file-label">
+                <input class="file-input" name="imagefile" type="file" accept="image/png, image/jpeg">
+                <span class="file-cta">
+                    <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                    Choose a file…
+                    </span>
+                </span>
+                <span class="file-name"></span>
+                </label>
+            </div>
+            <button type="submit" class="button is-info">Upload</button>
+          </form>
+        {{/if}}
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".file-input").forEach(input => {
+        input.onchange = () => {
+          if (input.files.length > 0) {
+            const fileName = input.closest(".file").querySelector(".file-name");
+            fileName.textContent = input.files[0].name;
+          }
+        };
+      });
+    </script>
+  </div>
+{{/each}}

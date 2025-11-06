@@ -46,4 +46,10 @@ export const poiMongoStore = {
     poiDoc.longitude = updatedPoi.longitude;
     await poiDoc.save();
   },
+
+  async updatePoiImg(id, url) {
+    const poiDoc = await Poi.findOne({ _id: id });
+    poiDoc.img = url;
+    await poiDoc.save();
+  }
 };

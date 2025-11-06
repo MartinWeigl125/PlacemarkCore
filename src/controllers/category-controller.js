@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { PoiSpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const categoryController = {
   index: {
@@ -64,4 +65,39 @@ export const categoryController = {
       return h.redirect(`/category/${request.params.catid}`);   
     }
   },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          await db.poiStore.updatePoiImg(request.params.id, url);
+        }
+        return h.redirect(`/category/${request.params.catid}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${request.params.catid}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        await imageStore.deleteImage(category.img);
+        await db.poiStore.updatePoiImg(request.params.id, url);
+        return h.redirect(`/category/${request.params.catid}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${request.params.catid}`);
+      }
+    }
+  }
 };
