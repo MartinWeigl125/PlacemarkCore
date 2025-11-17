@@ -8,11 +8,11 @@ export const categoryMongoStore = {
     return categories;
   },
 
-  async getCategoryById(id) {
+  async getCategoryById(id, userid) {
     if (Mongoose.isValidObjectId(id)) {
       const category = await Category.findOne({ _id: id }).lean();
       if (category) {
-        category.pois = await poiMongoStore.getPoisByCategoryId(category._id);
+        category.pois = await poiMongoStore.getPoisByCategoryId(category._id, userid);
       }
       return category;
     }

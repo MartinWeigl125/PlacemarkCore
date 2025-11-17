@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "./placemark-service.js";
-import { maggie, jahnstadion, testPois, building, footballStadium } from "../fixtures.js";
+import { maggie, jahnstadion, testPois, building, footballStadium, lisa } from "../fixtures.js";
 
 const pois = new Array(testPois.length);
 
@@ -74,5 +74,21 @@ suite("Poi API tests", () => {
       assert(error.response.data.message === "No poi with this id");
       assert.equal(error.response.data.statusCode, 404);
     }
+  });
+
+  test("insert private poi", async () => {
+    const stadium = jahnstadion;
+    stadium.userid = user._id;
+    let football = await placemarkService.createCategory(footballStadium);
+    const newPoi = await placemarkService.createPoi(football._id, stadium);
+    football = await placemarkService.getCategory(football._id);
+    assert.equal(football.pois.length, 1);
+
+    placemarkService.clearAuth();
+    user = await placemarkService.createUser(lisa);
+    await placemarkService.authenticate({ email: lisa.email, password: lisa.password });
+
+    football = await placemarkService.getCategory(football._id);
+    assert.equal(football.pois.length, 0);
   });
 });

@@ -22,7 +22,7 @@ export const poiApi = {
     tags: ["api"],
     description: "Create a poi",
     notes: "Returns the newly created poi",
-    validate: { payload: PoiSpec },
+    validate: { params: { id: IdSpec }, payload: PoiSpec },
     response: { schema: PoiSpecPlus, failAction: validationError },
   },
 
