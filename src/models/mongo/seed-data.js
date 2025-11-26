@@ -39,6 +39,10 @@ export const seedData = {
     university: {
       name: "Universities",
       img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1762423346/tkipcpo6qgnvvft6q4lk.jpg"
+    },
+    Private: {
+      name: "Private Points of Interest",
+      img: "http://res.cloudinary.com/dlhqnloeh/image/upload/v1763360479/yvyhlpap3wuyamutp8jp.png"
     }
   },
   pois: {

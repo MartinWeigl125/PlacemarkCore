@@ -13,8 +13,11 @@ export const poiMongoStore = {
     return this.getPoiById(poiObj._id);
   },
 
-  async getPoisByCategoryId(id) {
-    const pois = await Poi.find({ categoryid: id }).lean();
+  async getPoisByCategoryId(id, userid) {
+    const pois = await Poi.find({ 
+      categoryid: id,
+      $or: [{ userid: userid }, { userid: null }]
+    }).lean();
     return pois;
   },
 

@@ -5,7 +5,8 @@ import { imageStore } from "../models/image-store.js";
 export const categoryController = {
   index: {
     handler: async function (request, h) {
-      const category = await db.categoryStore.getCategoryById(request.params.id);
+      const loggedInUser = request.auth.credentials;
+      const category = await db.categoryStore.getCategoryById(request.params.id, loggedInUser._id);
       const viewData = {
         title: "Category",
         category: category,
@@ -19,18 +20,24 @@ export const categoryController = {
       payload: PoiSpec,
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
-        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const loggedInUser = request.auth.credentials;
+        const category = await db.categoryStore.getCategoryById(request.params.id, loggedInUser._id);
         return h.view("category-view", { title: "Add Point of Interest error", errors: error.details, category: category }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
-      const category = await db.categoryStore.getCategoryById(request.params.id);
+      const loggedInUser = request.auth.credentials;
+      const category = await db.categoryStore.getCategoryById(request.params.id, loggedInUser._id);
       const newPoi = {
         name: request.payload.name,
         description: request.payload.description,
         latitude: Number(request.payload.latitude),
         longitude: Number(request.payload.longitude),
       };
+      // static check for private POIs: if yes, add userid to the newly created POI
+      if (category.name === "Private Points of Interest") {
+        newPoi.userid = loggedInUser._id;
+      }
       await db.poiStore.addPoi(category._id, newPoi);
       return h.redirect(`/category/${category._id}`);
     },
@@ -41,7 +48,8 @@ export const categoryController = {
       payload: PoiSpec,
       options: { abortEarly: false },
       failAction: async function (request, h, error) {
-        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const loggedInUser = request.auth.credentials;
+        const category = await db.categoryStore.getCategoryById(request.params.id, loggedInUser._id);
         return h.view("category-view", { title: "Edit Point of Interest error", errors: error.details, category: category }).takeover().code(400);
       },
     },
