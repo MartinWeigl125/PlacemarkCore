@@ -1,4 +1,5 @@
 import { categoryApi } from "./api/category-api.js";
+import { commentApi } from "./api/comment-api.js";
 import { poiApi } from "./api/poi-api.js";
 import { userApi } from "./api/user-api.js";
 
@@ -23,6 +24,13 @@ export const apiRoutes = [
   { method: "PUT", path: "/api/pois/{id}", config: poiApi.update },
   { method: "DELETE", path: "/api/pois", config: poiApi.deleteAll },
   { method: "DELETE", path: "/api/pois/{id}", config: poiApi.delete },
+
+  { method: "POST", path: "/api/comments", config: commentApi.create },
+  { method: "GET", path: "/api/comments", config: commentApi.find },
+  { method: "GET", path: "/api/comments/{id}", config: commentApi.findOne },
+  { method: "PUT", path: "/api/comments/{id}", config: commentApi.update },
+  { method: "DELETE", path: "/api/comments", config: commentApi.deleteAll },
+  { method: "DELETE", path: "/api/comments/{id}", config: commentApi.delete },
 
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 ];
