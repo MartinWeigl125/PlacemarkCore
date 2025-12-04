@@ -1,6 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth } from "../models/joi-schemas.js";
+import { UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth, UserPrivateArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
 
@@ -124,6 +124,24 @@ export const userApi = {
     notes: "All users removed from Placemark",
   },
 
+  getUsersWithPrivatePois: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const users = await db.userStore.getUsersWithPrivatePoiCount();
+        return users;
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Get all users with private poi count",
+    notes: "Returns all users with the count of their private pois",
+    response: { schema: UserPrivateArray, failAction: validationError },
+  },
+
   authenticate: {
     auth: false,
     handler: async function (request, h) {
@@ -136,7 +154,12 @@ export const userApi = {
           return Boom.unauthorized("Invalid password");
         }
         const token = createToken(user);
-        return h.response({ success: true, token: token }).code(201);
+        return h.response({ success: true, 
+                            firstName: `${user.firstName}`,
+                            lastName: `${user.lastName}`, 
+                            token: token, 
+                            _id: user._id 
+                          }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

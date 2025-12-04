@@ -10,6 +10,7 @@ export const apiRoutes = [
   { method: "PUT", path: "/api/users/{id}", config: userApi.update },
   { method: "DELETE", path: "/api/users/{id}", config: userApi.delete },
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
+  { method: "GET", path: "/api/users/private", config: userApi.getUsersWithPrivatePois },
 
   { method: "POST", path: "/api/categories", config: categoryApi.create },
   { method: "GET", path: "/api/categories", config: categoryApi.find },
@@ -24,6 +25,9 @@ export const apiRoutes = [
   { method: "PUT", path: "/api/pois/{id}", config: poiApi.update },
   { method: "DELETE", path: "/api/pois", config: poiApi.deleteAll },
   { method: "DELETE", path: "/api/pois/{id}", config: poiApi.delete },
+  { method: "GET", path: "/api/categories/{id}/pois", config: poiApi.getPoisByCategory },
+  { method: "POST", path: "/api/pois/{id}/images/upload", config: poiApi.uploadImage },
+  { method: "POST", path: "/api/pois/{id}/images/delete", config: poiApi.deleteImage },
 
   { method: "POST", path: "/api/comments", config: commentApi.create },
   { method: "GET", path: "/api/comments", config: commentApi.find },
@@ -31,6 +35,7 @@ export const apiRoutes = [
   { method: "PUT", path: "/api/comments/{id}", config: commentApi.update },
   { method: "DELETE", path: "/api/comments", config: commentApi.deleteAll },
   { method: "DELETE", path: "/api/comments/{id}", config: commentApi.delete },
+  { method: "GET", path: "/api/pois/{id}/comments", config: commentApi.getCommentsByPoi },
 
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 ];

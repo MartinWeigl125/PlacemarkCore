@@ -1,5 +1,6 @@
 import Mongoose from "mongoose";
 import { User } from "./user.js";
+import { poiMongoStore } from "./poi-mongo-store.js";
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -46,5 +47,20 @@ export const userMongoStore = {
 
   async deleteAllUsers() {
     await User.deleteMany({});
+  },
+
+  async getUsersWithPrivatePoiCount() {
+    const users = await User.find().lean(); 
+    const usersWithCounts = await Promise.all(
+      users.map(async (user) => {
+        const poiCount = await poiMongoStore.getUserPoiCount(user._id);
+        return {
+          ...user,
+          poiCount,
+          password: undefined
+        };
+      })
+    );
+    return usersWithCounts.map(({ password, ...user }) => user);
   }
 };

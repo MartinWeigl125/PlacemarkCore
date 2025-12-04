@@ -8,7 +8,7 @@ export const PoiSpec = Joi.object()
     description: Joi.string().example("The football stadium of the local 3rd division team SSV Jahn Regensburg").allow("").optional(),
     latitude: Joi.number().example(49.015556).required(),
     longitude: Joi.number().example(12.073889).required(),
-    img: Joi.string().allow("").optional(),
+    img: Joi.array().items(Joi.string()).allow("").optional(),
     categoryid: IdSpec.allow("").optional(),
     userid: IdSpec.allow("").optional(),
   })
@@ -60,6 +60,9 @@ export const JwtAuth = Joi.object()
   .keys({
     success: Joi.boolean().example("true").required(),
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+    firstName: Joi.string().example("Homer").required(),
+    lastName: Joi.string().example("Simpson").required(),
+    _id: IdSpec,
   })
   .label("JwtAuth");
 
@@ -78,3 +81,25 @@ export const CommentSpecPlus = CommentSpec.keys({
 }).label("CommentPlus");
 
 export const CommentArray = Joi.array().items(CommentSpecPlus).label("CommentArray");
+
+export const ImageSpec = Joi.object()
+  .keys({
+    img: Joi.string().example("http://res.cloudinary.com/dlhqnloeh/image/upload/v1762425742/w5cd3qrhhjtgl1fbueio.jpg").required(),
+  })
+  .label("Poi");
+
+export const UserPrivateSpec = Joi.object()
+  .keys({
+    email: Joi.string().email().example("homer@simpson.com").required(),
+    firstName: Joi.string().example("Homer").required(),
+    lastName: Joi.string().example("Simpson").required(),
+    poiCount: Joi.number().example(0).required()
+  })
+  .label("UserPrivate");
+
+export const UserPrivateSpecPlus = UserPrivateSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("UserPrivatePlus");
+
+export const UserPrivateArray = Joi.array().items(UserPrivateSpecPlus).label("UserPrivateArray");

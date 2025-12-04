@@ -52,7 +52,16 @@ export const poiMongoStore = {
 
   async updatePoiImg(id, url) {
     const poiDoc = await Poi.findOne({ _id: id });
-    poiDoc.img = url;
+    if (poiDoc.img.includes(url)) {
+      poiDoc.img = poiDoc.img.filter((imgUrl) => imgUrl !== url);
+    } else {
+      poiDoc.img.push(url);
+    }
     await poiDoc.save();
+  },
+
+  async getUserPoiCount(id) {
+    const pois = await Poi.find({ userid: id }).lean();
+    return pois.length;
   }
 };

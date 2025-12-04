@@ -128,4 +128,26 @@ export const commentApi = {
     tags: ["api"],
     description: "Delete all comments",
   },
+
+  getCommentsByPoi: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const comments = await db.commentStore.getCommentsByPoiId(request.params.id);
+        if (!comments) {
+          return [];
+        }
+        return comments;
+      } catch (err) {
+        return Boom.serverUnavailable("No poi with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Find comments by poi id",
+    notes: "Returns all comments of this poi",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: CommentArray, failAction: validationError },
+  },
 };

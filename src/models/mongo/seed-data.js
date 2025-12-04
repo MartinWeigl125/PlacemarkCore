@@ -98,5 +98,21 @@ export const seedData = {
       longitude: 12.096,
       categoryid: "->categories.university" 
     },
+    private_poi_1: {
+      name: "Homer's private POI",
+      description: "This POI is only visible for Homer.",
+      latitude: 48.993732,
+      longitude: 12.062018,
+      categoryid: "->categories.Private",
+      userid: "->users.homer", 
+    },
+    private_poi_2: {
+      name: "Bart's private POI",
+      description: "This POI is only visible for Bart.",
+      latitude: 49.043461,
+      longitude: 12.096703,
+      categoryid: "->categories.Private",
+      userid: "->users.bart", 
+    },
   }
 }

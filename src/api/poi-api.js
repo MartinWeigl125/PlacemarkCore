@@ -1,7 +1,8 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PoiSpec, PoiSpecPlus, PoiAray } from "../models/joi-schemas.js";
+import { IdSpec, PoiSpec, PoiSpecPlus, PoiAray, ImageSpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const poiApi = {
   create: {
@@ -122,5 +123,71 @@ export const poiApi = {
     },
     tags: ["api"],
     description: "Delete all pois",
+  },
+
+  getPoisByCategory: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const user = request.auth.credentials;
+        const poi = await db.poiStore.getPoisByCategoryId(request.params.id, user._id);
+        if (!poi) {
+          return [];
+        }
+        return poi;
+      } catch (err) {
+        return Boom.serverUnavailable("No poi with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Find pois by category id",
+    notes: "Returns all pois of this category",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PoiAray, failAction: validationError },
+  },
+
+  uploadImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const {file} = request.payload;
+        const imageUrl = await imageStore.uploadStream(file);
+        await db.poiStore.updatePoiImg(request.params.id, imageUrl);
+        const poi = await db.poiStore.getPoiById(request.params.id);
+        return poi;
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Upload image for a poi",
+    payload: {
+      multipart: true,
+      parse: true,
+      output: "stream"
+    },
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        await imageStore.deleteImage(request.payload.img);
+        await db.poiStore.updatePoiImg(request.params.id, request.payload.img);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete image of a poi",
+    validate: { params: { id: IdSpec }, payload: ImageSpec, failAction: validationError },
   },
 };
