@@ -13,7 +13,12 @@ export const commentMongoStore = {
   },
 
   async getCommentsByPoiId(id) {
-    const comments = await Comment.find({ poiid: id }).lean();
+    const comments = await Comment.find({ poiid: id })
+      .populate({
+        path: "userid",
+        select: "firstName lastName -_id"
+      })
+      .lean();
     return comments;
   },
 
