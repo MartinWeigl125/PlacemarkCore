@@ -1,4 +1,5 @@
 import Mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import { User } from "./user.js";
 import { poiMongoStore } from "./poi-mongo-store.js";
 
@@ -17,6 +18,9 @@ export const userMongoStore = {
   },
 
   async addUser(user) {
+    const saltRounds = 10;
+    user.password = await bcrypt.hash(user.password, saltRounds);
+
     const newUser = new User(user);
     const userObj = await newUser.save();
     const u = await this.getUserById(userObj._id);
@@ -33,6 +37,12 @@ export const userMongoStore = {
     userDoc.firstName = updatedUser.firstName;
     userDoc.lastName = updatedUser.lastName;
     userDoc.email = updatedUser.email;
+
+    const isAlreadyHashed = updatedUser.password.startsWith("$2b$") || updatedUser.password.startsWith("$2a$");
+    if (!isAlreadyHashed) {
+      const saltRounds = 10;
+      updatedUser.password = await bcrypt.hash(updatedUser.password, saltRounds);
+    }
     userDoc.password = updatedUser.password;
     await userDoc.save();
   },
