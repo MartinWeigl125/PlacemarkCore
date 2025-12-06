@@ -1,5 +1,6 @@
 import Cookie from "@hapi/cookie";
 import Hapi from "@hapi/hapi";
+import Bell from "@hapi/bell";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import Vision from "@hapi/vision";
@@ -48,6 +49,7 @@ async function init() {
       }
     }
   });
+  await server.register(Bell);
   await server.register(Cookie);
   await server.register(Vision);
   await server.register(jwt);
@@ -85,6 +87,15 @@ async function init() {
     },
     redirectTo: "/",
     validate: accountsController.validate,
+  });
+  server.auth.strategy("google", "bell", {
+    provider: "google",
+    password: process.env.cookie_password,
+    isSecure: false,
+    clientId: process.env.google_client_id,
+    clientSecret: process.env.google_client_secret,
+    location: "http://localhost:3000",
+    scope: ["openid", "email", "profile"]
   });
   server.auth.default("session");
   db.init("mongo");

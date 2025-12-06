@@ -19,7 +19,9 @@ export const userMongoStore = {
 
   async addUser(user) {
     const saltRounds = 10;
-    user.password = await bcrypt.hash(user.password, saltRounds);
+    if (user.password) {
+      user.password = await bcrypt.hash(user.password, saltRounds);
+    }
 
     const newUser = new User(user);
     const userObj = await newUser.save();
@@ -72,5 +74,25 @@ export const userMongoStore = {
       })
     );
     return usersWithCounts.map(({ password, ...user }) => user);
+  },
+
+  async findOrCreateOAuthUser(newUser) {
+    let user = null;
+    if (newUser.googleId) {
+      user = await User.findOne({ googleId: newUser.googleId }).lean();
+    }
+    if (!user && newUser.githubId) {
+      user = await User.findOne({ githubId: newUser.githubId }).lean();
+    }
+    if (!user && newUser.email) {
+      user = await this.getUserByEmail(newUser.email);
+      if (user) {
+        return null;
+      }
+    }
+    if (!user) {
+      user = await this.addUser(newUser);
+    }
+    return user;
   }
 };

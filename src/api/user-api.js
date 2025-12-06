@@ -172,4 +172,47 @@ export const userApi = {
     validate: { payload: UserCredentialsSpec, failAction: validationError },
     response: { schema: JwtAuth, failAction: validationError },
   },
+
+  googleAuth: {
+    auth: false,
+    handler: async function (request, h) {
+      return h.redirect("/api/users/auth/google/callback"); 
+    },
+    tags: ["api"],
+    description: "Login with Google",
+    notes: "Configures OAuth2 authentication with Google",
+  },
+
+  googleCallback: {
+    auth: {
+      strategy: "google",
+    },
+    handler: async function (request, h) {
+      try {
+        const {profile} = request.auth.credentials;
+        const newUser = {
+          firstName: profile.name.given_name,
+          lastName: profile.name.family_name,
+          email: profile.email,
+          googleId: profile.id,
+          githubId: null,
+          password: null
+        }
+        const user = await db.userStore.findOrCreateOAuthUser(newUser);
+        if (!user) {
+          return Boom.badRequest("User already exists with this email and another provider");
+        }
+        const token = createToken(user);
+        return h.redirect(
+          `http://localhost:5173/oauth/google?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+        );
+      } catch (err) {
+        console.error(err);
+        return Boom.internal("Google Auth failed");
+      }   
+    },
+    tags: ["api"],
+    description: "Login with Google",
+    notes: "Configures OAuth2 authentication with Google",
+  },
 };
