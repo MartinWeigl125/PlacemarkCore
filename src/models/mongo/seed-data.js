@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 export const seedData = {
   users: {
     _model: "User",
@@ -5,25 +7,25 @@ export const seedData = {
       firstName: "Homer",
       lastName: "Simpson",
       email: "homer@simpson.com",
-      password: "secret"
+      password: await bcrypt.hash("secret", 10)
     },
     marge: {
       firstName: "Marge",
       lastName: "Simpson",
       email: "marge@simpson.com",
-      password: "secret"
+      password: await bcrypt.hash("secret", 10)
     },
     bart: {
       firstName: "Bart",
       lastName: "Simpson",
       email: "bart@simpson.com",
-      password: "secret"
+      password: await bcrypt.hash("secret", 10)
     },
     admin: {
       firstName: "Placemark",
       lastName: "Admin",
       email: "admin@placemark.com",
-      password: "very_secret"
+      password: await bcrypt.hash("very_secret", 10)
     }
   },
   categories: {
