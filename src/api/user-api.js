@@ -189,7 +189,7 @@ export const userApi = {
     },
     handler: async function (request, h) {
       try {
-        const {profile} = request.auth.credentials;
+        const { profile } = request.auth.credentials;
         const newUser = {
           firstName: profile.name.given_name,
           lastName: profile.name.family_name,
@@ -214,5 +214,49 @@ export const userApi = {
     tags: ["api"],
     description: "Login with Google",
     notes: "Configures OAuth2 authentication with Google",
+  },
+
+  githubAuth: {
+    auth: false,
+    handler: async function (request, h) {
+      return h.redirect("/api/users/auth/github/callback"); 
+    },
+    tags: ["api"],
+    description: "Login with Github",
+    notes: "Configures OAuth2 authentication with Github",
+  },
+
+  githubCallback: {
+    auth: {
+      strategy: "github",
+    },
+    handler: async function (request, h) {
+      try {
+        const { profile } = request.auth.credentials;
+        console.log(profile);
+        const newUser = {
+          firstName: profile.username,
+          lastName: profile.displayName?.split(" ")[1] || "",
+          email: profile.email,
+          googleId: null,
+          githubId: profile.id,
+          password: null,
+        }
+        const user = await db.userStore.findOrCreateOAuthUser(newUser);
+        if (!user) {
+          return Boom.badRequest("User already exists with this email and another provider");
+        }
+        const token = createToken(user);
+        return h.redirect(
+          `http://localhost:5173/oauth/github?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+        );
+      } catch (err) {
+        console.error(err);
+        return Boom.internal("Github Auth failed");
+      }   
+    },
+    tags: ["api"],
+    description: "Login with Github",
+    notes: "Configures OAuth2 authentication with Github",
   },
 };

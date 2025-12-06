@@ -40,6 +40,6 @@ export const apiRoutes = [
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
   { method: "GET", path: "/api/users/auth/google", config: userApi.googleAuth },
   { method: "GET", path: "/api/users/auth/google/callback", config: userApi.googleCallback },
-  // { method: "GET", path: "/api/users/auth/github", config: userApi.githubAuth },
-  // { method: "GET", path: "/api/users/auth/github/callback", config: userApi.githubAuth },
+  { method: "GET", path: "/api/users/auth/github", config: userApi.githubAuth },
+  { method: "GET", path: "/api/users/auth/github/callback", config: userApi.githubCallback },
 ];

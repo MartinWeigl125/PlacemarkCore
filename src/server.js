@@ -97,6 +97,15 @@ async function init() {
     location: "http://localhost:3000",
     scope: ["openid", "email", "profile"]
   });
+  server.auth.strategy("github", "bell", {
+    provider: "github",
+    password: process.env.cookie_password,
+    isSecure: false,
+    clientId: process.env.github_client_id,
+    clientSecret: process.env.github_client_secret,
+    location: "http://localhost:3000",
+    scope: ["user:email"]
+  });
   server.auth.default("session");
   db.init("mongo");
   server.route(webRoutes);
