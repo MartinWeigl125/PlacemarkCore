@@ -73,7 +73,7 @@ export const userMongoStore = {
         };
       })
     );
-    return usersWithCounts.map(({ password, ...user }) => user);
+    return usersWithCounts.map(({ password, googleId, githubId, ...user }) => user);
   },
 
   async findOrCreateOAuthUser(newUser) {

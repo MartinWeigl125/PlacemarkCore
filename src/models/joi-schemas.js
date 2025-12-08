@@ -90,9 +90,9 @@ export const ImageSpec = Joi.object()
 
 export const UserPrivateSpec = Joi.object()
   .keys({
-    email: Joi.string().email().example("homer@simpson.com").required(),
+    email: Joi.string().email().example("homer@simpson.com").allow("").optional(), // for github if email is private
     firstName: Joi.string().example("Homer").required(),
-    lastName: Joi.string().example("Simpson").required(),
+    lastName: Joi.string().example("Simpson").allow("").optional(), // for github if name is private
     poiCount: Joi.number().example(0).required()
   })
   .label("UserPrivate");

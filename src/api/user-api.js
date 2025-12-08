@@ -233,11 +233,10 @@ export const userApi = {
     handler: async function (request, h) {
       try {
         const { profile } = request.auth.credentials;
-        console.log(profile);
         const newUser = {
           firstName: profile.username,
           lastName: profile.displayName?.split(" ")[1] || "",
-          email: profile.email,
+          email: profile.email || "",
           googleId: null,
           githubId: profile.id,
           password: null,
