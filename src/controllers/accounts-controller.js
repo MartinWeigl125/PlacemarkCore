@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { UserCredentialsSpec, UserSpec } from "../models/joi-schemas.js";
 
@@ -47,7 +48,8 @@ export const accountsController = {
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
-      if (!user || user.password !== password) {
+      const isValid = await bcrypt.compare(request.payload.password, user.password);
+      if (!user || !isValid) {
         const errors = [
           { message: "Email or password invalid." }
         ];
