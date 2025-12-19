@@ -197,6 +197,10 @@ export const seedData = {
       description: "Allianz Arena in Munich is one of Europe's most iconic stadiums, home to Bayern Munich. Famous for its illuminated exterior panels and high-capacity bowl, the arena provides world-class facilities for domestic and international fixtures. Its scale and modernity make it a landmark of German and global football.",
       latitude: 48.217979,
       longitude: 11.623746,
+      img: [
+        "https://res.cloudinary.com/dlhqnloeh/image/upload/v1766134763/vvzst8hfbiu9mddsneoo.jpg",
+        "https://res.cloudinary.com/dlhqnloeh/image/upload/v1766134960/zbuujbdv552dfo3s3yvb.jpg",
+      ],
       categoryid: "->categories.huge"
     },
     building_16: {
