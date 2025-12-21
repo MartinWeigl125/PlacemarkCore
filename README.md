@@ -1,5 +1,9 @@
 # PlacemarkCore
 This is the first part of the assignment in the module Advanced Full Stack Development. It is about implementing a Point Of Interest application with the framework HAPI.
+
+## Attention
+Release v3.0.0 only provides API support. Not all features of the MVC App are updated for this release. If you want to use the MVC App, use v2.0.0.
+
 ## Features
 - Create and manage Points of Interests
 - Group Points of Interests into categories
@@ -27,6 +31,7 @@ db=CONNECTION_STRING_HERE
 cloudinary_name=CLOUDINARY_NAME_HERE
 cloudinary_key=CLOUDINARY_KEY_HERE
 cloudinary_secret=CLOUDINARY_SECRET_HERE
+frontend_url=FRONTEND_URL_HERE
 ```
 
 ## Usage
