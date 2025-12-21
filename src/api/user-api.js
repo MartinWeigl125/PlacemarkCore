@@ -1,9 +1,12 @@
 import Boom from "@hapi/boom";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 import { db } from "../models/db.js";
 import { UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth, UserPrivateArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
+
+dotenv.config();
 
 export const userApi = {
   create: {
@@ -204,7 +207,7 @@ export const userApi = {
         }
         const token = createToken(user);
         return h.redirect(
-          `http://localhost:5173/oauth/google?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+          `${process.env.frontend_url}/oauth/google?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
         );
       } catch (err) {
         console.error(err);
@@ -247,7 +250,7 @@ export const userApi = {
         }
         const token = createToken(user);
         return h.redirect(
-          `http://localhost:5173/oauth/github?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+          `${process.env.frontend_url}/oauth/github?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
         );
       } catch (err) {
         console.error(err);
