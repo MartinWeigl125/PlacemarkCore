@@ -13,7 +13,7 @@ export const poiApi = {
       try {
         const poi = await db.poiStore.addPoi(request.params.id, request.payload);
         if (poi) {
-          return h.response(poi).code(201);
+          return poi;
         }
         return Boom.badImplementation("error creating poi");
       } catch (err) {
@@ -78,7 +78,7 @@ export const poiApi = {
           return Boom.notFound("No poi with this id");
         }
         await db.poiStore.updatePoi(poi, request.payload);
-        return h.response().code(204);
+        return await db.poiStore.getPoiById(request.params.id);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

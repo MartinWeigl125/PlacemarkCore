@@ -10,7 +10,7 @@ export const commentApi = {
       try {
         const comment = await db.commentStore.addComment(request.payload);
         if (comment) {
-          return h.response(comment).code(201);
+          return comment;
         }
         return Boom.badImplementation("error creating comment");
       } catch (err) {
