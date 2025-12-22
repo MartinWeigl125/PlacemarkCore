@@ -94,7 +94,7 @@ async function init() {
     isSecure: false,
     clientId: process.env.google_client_id,
     clientSecret: process.env.google_client_secret,
-    location: "http://localhost:3000",
+    location: process.env.backend_url,
     scope: ["openid", "email", "profile"]
   });
   server.auth.strategy("github", "bell", {
@@ -103,7 +103,7 @@ async function init() {
     isSecure: false,
     clientId: process.env.github_client_id,
     clientSecret: process.env.github_client_secret,
-    location: "http://localhost:3000",
+    location: process.env.backend_url,
     scope: ["user:email"]
   });
   server.auth.default("session");
