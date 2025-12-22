@@ -26,5 +26,18 @@ export const imageStore = {
 
   deleteImage: async function(img) {
     await cloudinary.v2.uploader.destroy(img, {});
-  }
+  },
+
+  uploadStream: async function(file) {
+    return new Promise((resolve, reject) => {
+      const upload = cloudinary.v2.uploader.upload_stream(
+        { resource_type: "image" },
+        (error, result) => {
+          if (error) return reject(error);
+          return resolve(result.secure_url);
+        }
+      );
+      file.pipe(upload);
+    });
+  },
 };

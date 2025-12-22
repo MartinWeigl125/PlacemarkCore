@@ -1,5 +1,7 @@
 import Mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import { User } from "./user.js";
+import { poiMongoStore } from "./poi-mongo-store.js";
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -16,6 +18,11 @@ export const userMongoStore = {
   },
 
   async addUser(user) {
+    const saltRounds = 10;
+    if (user.password) {
+      user.password = await bcrypt.hash(user.password, saltRounds);
+    }
+
     const newUser = new User(user);
     const userObj = await newUser.save();
     const u = await this.getUserById(userObj._id);
@@ -32,6 +39,12 @@ export const userMongoStore = {
     userDoc.firstName = updatedUser.firstName;
     userDoc.lastName = updatedUser.lastName;
     userDoc.email = updatedUser.email;
+
+    const isAlreadyHashed = updatedUser.password.startsWith("$2b$") || updatedUser.password.startsWith("$2a$");
+    if (!isAlreadyHashed) {
+      const saltRounds = 10;
+      updatedUser.password = await bcrypt.hash(updatedUser.password, saltRounds);
+    }
     userDoc.password = updatedUser.password;
     await userDoc.save();
   },
@@ -46,5 +59,40 @@ export const userMongoStore = {
 
   async deleteAllUsers() {
     await User.deleteMany({});
+  },
+
+  async getUsersWithPrivatePoiCount() {
+    const users = await User.find().lean(); 
+    const usersWithCounts = await Promise.all(
+      users.map(async (user) => {
+        const poiCount = await poiMongoStore.getUserPoiCount(user._id);
+        return {
+          ...user,
+          poiCount,
+          password: undefined
+        };
+      })
+    );
+    return usersWithCounts.map(({ password, googleId, githubId, ...user }) => user);
+  },
+
+  async findOrCreateOAuthUser(newUser) {
+    let user = null;
+    if (newUser.googleId) {
+      user = await User.findOne({ googleId: newUser.googleId }).lean();
+    }
+    if (!user && newUser.githubId) {
+      user = await User.findOne({ githubId: newUser.githubId }).lean();
+    }
+    if (!user && newUser.email) {
+      user = await this.getUserByEmail(newUser.email);
+      if (user) {
+        return null;
+      }
+    }
+    if (!user) {
+      user = await this.addUser(newUser);
+    }
+    return user;
   }
 };

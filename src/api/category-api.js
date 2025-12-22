@@ -33,7 +33,8 @@ export const categoryApi = {
     },
     handler: async function (request, h) {
       try {
-        const categories = await db.categoryStore.getAllCategories();
+        const userid = request.auth.credentials._id;
+        const categories = await db.categoryStore.getAllCategories(userid);
         return categories;
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -51,7 +52,8 @@ export const categoryApi = {
     },
     async handler(request) {
       try {
-        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const userid = request.auth.credentials._id;
+        const category = await db.categoryStore.getCategoryById(request.params.id, userid);
         if (!category) {
           return Boom.notFound("No category with this id");
         }

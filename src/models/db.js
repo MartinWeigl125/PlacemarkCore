@@ -6,11 +6,13 @@ import { connectMongo } from "./mongo/connect.js";
 import { categoryMongoStore } from "./mongo/category-mongo-store.js";
 import { poiMongoStore } from "./mongo/poi-mongo-store.js";
 import { userMongoStore } from "./mongo/user-mongo-store.js";
+import { commentMongoStore } from "./mongo/comment-mongo-store.js";
 
 export const db = {
   categoryStore: null,
   poiStore: null,
   userStore: null,
+  commentStore: null,
 
   init(dbType) {
     switch (dbType) {
@@ -18,6 +20,7 @@ export const db = {
         this.categoryStore = categoryMongoStore;
         this.poiStore = poiMongoStore;
         this.userStore = userMongoStore;
+        this.commentStore = commentMongoStore;
         connectMongo();
         break;
       default:

@@ -1,8 +1,12 @@
 import Boom from "@hapi/boom";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 import { db } from "../models/db.js";
-import { UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth } from "../models/joi-schemas.js";
+import { UserSpec, UserSpecPlus, IdSpec, UserArray, UserCredentialsSpec, JwtAuth, UserPrivateArray } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
+
+dotenv.config();
 
 export const userApi = {
   create: {
@@ -124,6 +128,24 @@ export const userApi = {
     notes: "All users removed from Placemark",
   },
 
+  getUsersWithPrivatePois: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const users = await db.userStore.getUsersWithPrivatePoiCount();
+        return users;
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Get all users with private poi count",
+    notes: "Returns all users with the count of their private pois",
+    response: { schema: UserPrivateArray, failAction: validationError },
+  },
+
   authenticate: {
     auth: false,
     handler: async function (request, h) {
@@ -132,11 +154,17 @@ export const userApi = {
         if (!user) {
           return Boom.unauthorized("User not found");
         }
-        if (user.password !== request.payload.password) {
+        const isValid = await bcrypt.compare(request.payload.password, user.password);
+        if (!isValid) {
           return Boom.unauthorized("Invalid password");
         }
         const token = createToken(user);
-        return h.response({ success: true, token: token }).code(201);
+        return h.response({ success: true, 
+                            firstName: `${user.firstName}`,
+                            lastName: `${user.lastName}`, 
+                            token: token, 
+                            _id: user._id 
+                          }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
@@ -146,5 +174,91 @@ export const userApi = {
     notes: "If user has valid email/password, create and return a JWT token",
     validate: { payload: UserCredentialsSpec, failAction: validationError },
     response: { schema: JwtAuth, failAction: validationError },
+  },
+
+  googleAuth: {
+    auth: false,
+    handler: async function (request, h) {
+      return h.redirect("/api/users/auth/google/callback"); 
+    },
+    tags: ["api"],
+    description: "Login with Google",
+    notes: "Configures OAuth2 authentication with Google",
+  },
+
+  googleCallback: {
+    auth: {
+      strategy: "google",
+    },
+    handler: async function (request, h) {
+      try {
+        const { profile } = request.auth.credentials;
+        const newUser = {
+          firstName: profile.name.given_name,
+          lastName: profile.name.family_name,
+          email: profile.email,
+          googleId: profile.id,
+          githubId: null,
+          password: null
+        }
+        const user = await db.userStore.findOrCreateOAuthUser(newUser);
+        if (!user) {
+          return Boom.badRequest("User already exists with this email and another provider");
+        }
+        const token = createToken(user);
+        return h.redirect(
+          `${process.env.frontend_url}/oauth/google?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+        );
+      } catch (err) {
+        console.error(err);
+        return Boom.internal("Google Auth failed");
+      }   
+    },
+    tags: ["api"],
+    description: "Login with Google",
+    notes: "Configures OAuth2 authentication with Google",
+  },
+
+  githubAuth: {
+    auth: false,
+    handler: async function (request, h) {
+      return h.redirect("/api/users/auth/github/callback"); 
+    },
+    tags: ["api"],
+    description: "Login with Github",
+    notes: "Configures OAuth2 authentication with Github",
+  },
+
+  githubCallback: {
+    auth: {
+      strategy: "github",
+    },
+    handler: async function (request, h) {
+      try {
+        const { profile } = request.auth.credentials;
+        const newUser = {
+          firstName: profile.username,
+          lastName: profile.displayName?.split(" ")[1] || "",
+          email: profile.email || "",
+          googleId: null,
+          githubId: profile.id,
+          password: null,
+        }
+        const user = await db.userStore.findOrCreateOAuthUser(newUser);
+        if (!user) {
+          return Boom.badRequest("User already exists with this email and another provider");
+        }
+        const token = createToken(user);
+        return h.redirect(
+          `${process.env.frontend_url}/oauth/github?token=${token}&firstName=${user.firstName}&lastName=${user.lastName}&_id=${user._id}`
+        );
+      } catch (err) {
+        console.error(err);
+        return Boom.internal("Github Auth failed");
+      }   
+    },
+    tags: ["api"],
+    description: "Login with Github",
+    notes: "Configures OAuth2 authentication with Github",
   },
 };
