@@ -2,7 +2,12 @@ import { Comment } from "./comment.js";
 
 export const commentMongoStore = {
   async getAllComments() {
-    const comments = await Comment.find().lean();
+    const comments = await Comment.find()
+      .populate({
+        path: "userid",
+        select: "firstName lastName -_id"
+      })
+      .lean();
     return comments;
   },
 
